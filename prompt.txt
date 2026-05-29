@@ -1,0 +1,24 @@
+Atue como um Arquiteto de Software Sênior e Especialista em HealthTech. Preciso criar a estrutura inicial de um aplicativo SaaS Multi-tenant focado no monitoramento de Saúde Crônica (Pressão Arterial e Nível Glicêmico). 
+
+O sistema deve possuir duas interfaces principais:
+1. Painel do Profissional de Saúde (Web): Onde médicos/clínicas gerenciam seus pacientes assinantes e visualizam dashboards de evolução.
+2. Interface do Paciente: Onde o usuário realiza os registros diários.
+
+Espeficificações Técnicas Desejadas:
+- Frontend/Mobile: React ou React Native estruturado de forma limpa, priorizando componentes reutilizáveis, TypeScript e estilização moderna (Tailwind CSS / NativeWind).
+- Backend: API RESTful utilizando Node.js com TypeScript, fortemente tipada.
+- Banco de Dados & ORM: PostgreSQL utilizando Prisma ORM, contemplando um esquema preparado para Multi-tenancy (separação de dados por clínicas/médicos e isolamento de pacientes).
+
+Funcionalidades Cruciais a serem mapeadas no Schema e nas Rotas:
+- Autenticação e Autorização (RBAC: Admin, Médico, Paciente).
+- Registro de Pressão Arterial (Sistólica, Diastólica, Pulso, Data/Hora e Notas).
+- Registro de Glicemia (Valor mg/dL, Contexto: Jejum, Pré-refeição, Pós-refeição, Data/Hora).
+- Vinculação de Paciente ao Tenant (Médico/Clínica responsável).
+
+Com base nisso, gere para mim:
+1. O arquivo `schema.prisma` completo e estruturado com os relacionamentos necessários para suportar o modelo SaaS.
+2. A tipagem TypeScript (interfaces) para os registros de Pressão e Glicemia.
+3. Um exemplo de componente React funcional para o formulário de inserção desses dados pelo paciente, garantindo uma boa experiência de usuário (UX).
+4. Uma rota (Controller/Service) em Node.js demonstrando a inserção de um novo registro validando o ID do paciente logado.
+
+Adote boas práticas de desenvolvimento, separação de conceitos (Clean Architecture) e código limpo.

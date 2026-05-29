@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-800 font-sans antialiased selection:bg-rose-100 selection:text-rose-900 overflow-x-hidden;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(220,100%,97%,1) 0, transparent 50%), 
+      radial-gradient(at 50% 0%, hsla(220,100%,93%,0.4) 0, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(340,100%,95%,0.3) 0, transparent 50%);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
+/* Stagger animation delays for list items */
+@layer utilities {
+  .animation-delay-100 { animation-delay: 0.1s; }
+  .animation-delay-200 { animation-delay: 0.2s; }
+  .animation-delay-300 { animation-delay: 0.3s; }
+  .animation-delay-400 { animation-delay: 0.4s; }
+
+  /* SVG line draw animation */
+  .svg-draw path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw-line 1.2s ease-out forwards;
+  }
+}
