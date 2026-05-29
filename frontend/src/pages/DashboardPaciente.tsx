@@ -4,7 +4,7 @@ import { HealthRecordForm } from '../components/HealthRecordForm';
 import type { BloodPressureRecord, GlucoseRecord } from '../types/health';
 import { useAuth } from '../hooks/useAuth';
 
-const API_HOST = 'http://localhost:3000';
+const API_HOST = '';
 
 // Dados de fallback para quando o backend não estiver disponível
 const makeFallbackBP = (userId: string): BloodPressureRecord[] => [

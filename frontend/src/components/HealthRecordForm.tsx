@@ -38,7 +38,7 @@ export const HealthRecordForm: React.FC<HealthRecordFormProps> = ({ type, onSucc
 
     try {
       let res: Response;
-      const apiHost = 'http://localhost:3000'; // Aponta para a porta do backend Express
+      const apiHost = '';
 
       if (type === 'bloodPressure') {
         res = await fetch(`${apiHost}/api/health/blood-pressure`, {

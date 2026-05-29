@@ -1,7 +1,7 @@
 // frontend/src/hooks/useAuth.tsx
 import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
-const API_HOST = 'http://localhost:3000';
+const API_HOST = '';
 
 export interface UserAuth {
   id: string;
@@ -18,7 +18,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, fullName: string, role: 'DOCTOR' | 'PATIENT', tenantId?: string) => Promise<void>;
+  register: (email: string, password: string, fullName: string, role: 'ADMIN' | 'DOCTOR' | 'PATIENT', tenantId?: string) => Promise<void>;
   logout: () => void;
   userId?: string;
   fullName?: string;
@@ -124,7 +124,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     email: string,
     password: string,
     fullName: string,
-    role: 'DOCTOR' | 'PATIENT',
+    role: 'ADMIN' | 'DOCTOR' | 'PATIENT',
     tenantId?: string
   ) => {
     const res = await fetch(`${API_HOST}/api/auth/register`, {

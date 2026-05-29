@@ -8,7 +8,7 @@ export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  const [role, setRole] = useState<'PATIENT' | 'DOCTOR'>('PATIENT');
+  const [role, setRole] = useState<'ADMIN' | 'PATIENT' | 'DOCTOR'>('PATIENT');
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -100,7 +100,7 @@ export const Login: React.FC = () => {
               {/* Role selection */}
               <div>
                 <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Tipo de Conta</label>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   <button
                     type="button"
                     onClick={() => setRole('PATIENT')}
@@ -113,7 +113,14 @@ export const Login: React.FC = () => {
                     onClick={() => setRole('DOCTOR')}
                     className={`py-3 px-4 rounded-xl border text-xs font-semibold transition-all ${role === 'DOCTOR' ? 'bg-violet-500/10 border-violet-500/30 text-violet-600 font-bold' : 'bg-slate-50 border-slate-200/80 text-slate-500 hover:border-slate-300'}`}
                   >
-                    🩺 Médico / Clínica
+                    🩺 Médico
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRole('ADMIN')}
+                    className={`py-3 px-4 rounded-xl border text-xs font-semibold transition-all ${role === 'ADMIN' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 font-bold' : 'bg-slate-50 border-slate-200/80 text-slate-500 hover:border-slate-300'}`}
+                  >
+                    ⚙️ Admin
                   </button>
                 </div>
               </div>

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
-const API_HOST = 'http://localhost:3000';
+const API_HOST = '';
 
 interface PatientMedicalRecord {
   id: string;

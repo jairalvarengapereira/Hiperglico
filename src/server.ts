@@ -7,11 +7,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import healthRoutes from './routes/health';
 import authRoutes from './routes/auth';
+import clinicRoutes from './routes/clinic';
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 // ---------- Middlewares ----------
 app.use(helmet());
@@ -22,6 +23,7 @@ app.use(express.json());
 // ---------- Rotas ----------
 app.use('/api/auth', authRoutes);
 app.use('/api/health', healthRoutes);
+app.use('/api/clinic', clinicRoutes);
 
 // Health check endpoint
 app.get('/health', (_req, res) => {

@@ -1,8 +1,12 @@
 // frontend/src/App.tsx
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import { Login } from './pages/Login';
 import { DashboardPaciente } from './pages/DashboardPaciente';
 import { DashboardMedico } from './pages/DashboardMedico';
+import { ClinicsList } from './pages/ClinicsList';
+import { CreateClinic } from './pages/CreateClinic';
+import { ClinicDetail } from './pages/ClinicDetail';
 
 function AppContent() {
   const { user, isAuthenticated, loading, logout } = useAuth();
@@ -30,7 +34,6 @@ function AppContent() {
       {/* Premium Glassmorphic Header */}
       <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 border-b border-slate-200/80 px-6 py-4 transition-all duration-300">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          
           {/* App Branding */}
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-rose-500 via-pink-500 to-violet-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
@@ -40,10 +43,16 @@ function AppContent() {
               <span className="block text-sm font-semibold tracking-wider bg-gradient-to-r from-slate-800 to-slate-900 bg-clip-text text-transparent">
                 Hiperglico
               </span>
-              <span className="block text-[10px] text-slate-500 font-medium">Monitoramento Clínico de Hipertensão e Diabetes.</span>
+              <span className="block text-[10px] text-slate-500 font-medium">
+                Monitoramento Clínico de Hipertensão e Diabetes.
+              </span>
             </div>
           </div>
-
+          {/* Navigation links */}
+          <nav className="flex gap-4 text-sm text-slate-600">
+            <Link to="/" className="hover:text-rose-600 transition-colors">Dashboard</Link>
+            <Link to="/clinics" className="hover:text-rose-600 transition-colors">Clínicas</Link>
+          </nav>
           {/* User Profile & Logout */}
           <div className="flex items-center gap-4 justify-between sm:justify-end">
             <div className="text-right">
@@ -66,11 +75,13 @@ function AppContent() {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-8">
-        {user.role === 'PATIENT' ? (
-          <DashboardPaciente />
-        ) : (
-          <DashboardMedico />
-        )}
+        <Routes>
+          <Route path="/" element={user.role === 'PATIENT' ? <DashboardPaciente /> : <DashboardMedico />} />
+          <Route path="/clinics" element={<ClinicsList />} />
+          <Route path="/clinics/create" element={<CreateClinic />} />
+          <Route path="/clinics/:id" element={<ClinicDetail />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
 
       {/* Footer */}
@@ -85,9 +96,11 @@ function AppContent() {
 
 function App() {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

@@ -1,7 +1,7 @@
 // frontend/src/hooks/useHealthData.ts
 import { useState, useCallback } from 'react';
 
-const API_HOST = 'http://localhost:3000';
+const API_HOST = '';
 
 interface FetchOptions {
   token: string;
