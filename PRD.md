@@ -263,6 +263,10 @@ D:\Projetos\IA\Projetos\Hiperglico\
 
 14. **Commit e push** — Enviado para https://github.com/jairalvarengapereira/Hiperglico.git
 
+15. **Substituição de logos** — Trocadas logos por versões 3D:
+   - `Logo.png` → `Logo3D.png` (App.tsx, Login.tsx)
+   - `Logo01.png` → `Logo3D01.png` (App.tsx)
+
 ### Credenciais de teste:
 - **Admin:** admin@saudevida.com.br / 123456
 - **Médico:** medico@saudevida.com.br / 123456
