@@ -127,22 +127,25 @@ SaaS multi-tenant para monitoramento clínico de hipertensão e diabetes (press�
 |----|-------------------------------------------|--------|
 | 12 | Seed completo (admin, médico, paciente)   | ✅ Concluído |
 | 13 | Suporte a Admin (RBAC)                    | ✅ Concluído |
-| 14 | Testes automatizados                      | ❌ Nenhum teste |
+| 14 | Testes automatizados (Jest + supertest)   | ❌ Nenhum teste |
 | 15 | README.md                                 | ❌ Sem instruções |
 | 16 | Tratamento de erros aprimorado            | ❌ Error handler genérico |
+| 15b| Limpar arquivos .js compilados do repo    | ✅ Concluído |
+| 16b| .gitignore para node_modules              | ✅ Concluído |
+| 17b| DashboardModoDemo — status API online     | ✅ Concluído |
 
 ### 🔵 BAIXA PRIORIDADE / DESEJÁVEL
 
 | #  | Item                                      | Status |
 |----|-------------------------------------------|--------|
-| 17 | Documentação da API (Swagger/OpenAPI)     | ❌ |
-| 18 | Notificações / Lembretes                  | ❌ |
-| 19 | Exportação de dados (PDF/CSV)             | ❌ |
-| 20 | Mobile (React Native)                     | ❌ |
-| 21 | CI/CD pipeline                            | ❌ |
-| 22 | Rate limiting                             | ❌ |
-| 23 | Logs estruturados                         | ❌ |
-| 24 | Auditoria / logs de acesso                | ❌ |
+| 18 | Documentação da API (Swagger/OpenAPI)     | ❌ |
+| 19 | Notificações / Lembretes                  | ❌ |
+| 20 | Exportação de dados (PDF/CSV)             | ❌ |
+| 21 | Mobile (React Native)                     | ❌ |
+| 22 | CI/CD pipeline                            | ❌ |
+| 23 | Rate limiting                             | ❌ |
+| 24 | Logs estruturados                         | ❌ |
+| 25 | Auditoria / logs de acesso                | ❌ |
 
 ---
 
@@ -210,30 +213,55 @@ D:\Projetos\IA\Projetos\Hiperglico\
 
 ### O que foi feito nesta sessão:
 
+#### Sessão anterior (manhã):
 1. **Separado sistema em pastas backend/ e frontend/** — Todos os arquivos do backend movidos para pasta `backend/`:
    - `.env`, `package.json`, `tsconfig.json`, `prisma/`, `src/`
    - Frontend permanece na pasta `frontend/`
    - Atualizado PRD.md com nova estrutura e comandos
 
-1. **Corrigido proxy do Vite** — `frontend/vite.config.ts` apontava para porta errada (3002 → 3001)
+2. **Corrigido proxy do Vite** — `frontend/vite.config.ts` apontava para porta errada (3002 → 3001)
 
-2. **Removidas URLs hardcoded** — 8 arquivos tinham `localhost:3000/3001/3002` hardcoded; substituídos por caminhos relativos para usar o proxy do Vite:
+3. **Removidas URLs hardcoded** — 8 arquivos tinham `localhost:3000/3001/3002` hardcoded; substituídos por caminhos relativos para usar o proxy do Vite:
    - `useAuth.tsx`, `HealthRecordForm.tsx`, `CreateClinic.tsx`, `ClinicsList.tsx`, `ClinicDetail.tsx`, `DashboardPaciente.tsx`, `DashboardMedico.tsx`, `useHealthData.ts`
 
-3. **Registro como Admin** — Adicionada role `ADMIN` no schema de registro (backend) e botão "Admin" no formulário de cadastro (frontend)
+4. **Registro como Admin** — Adicionada role `ADMIN` no schema de registro (backend) e botão "Admin" no formulário de cadastro (frontend)
 
-4. **Rota GET /api/clinic/:clinicId** — Criada `getClinicById` no controller e rota correspondente
+5. **Rota GET /api/clinic/:clinicId** — Criada `getClinicById` no controller e rota correspondente
 
-5. **Corrigido GET /api/clinic** — Query para ADMIN não retornava clínicas; ajustado para retornar todas quando role=ADMIN
+6. **Corrigido GET /api/clinic** — Query para ADMIN não retornava clínicas; ajustado para retornar todas quando role=ADMIN
 
-6. **CRUD de Clínicas** — Adicionadas rotas `PUT` e `DELETE`:
+7. **CRUD de Clínicas** — Adicionadas rotas `PUT` e `DELETE`:
    - `PUT /api/clinic/:clinicId` — atualiza nome e CNPJ (admin)
    - `DELETE /api/clinic/:clinicId` — exclui clínica (admin)
 
-7. **Frontend de Clínicas** — Atualizados `ClinicsList.tsx` e `ClinicDetail.tsx`:
+8. **Frontend de Clínicas** — Atualizados `ClinicsList.tsx` e `ClinicDetail.tsx`:
    - Botões de editar/excluir visíveis apenas para ADMIN
    - Formulário de edição inline na página de detalhes
    - Confirmação antes de excluir
+
+#### Sessão atual (tarde):
+9. **Corrigido erro de compilação TypeScript** — `authController.ts`: `user.tenantId` era `string | null`, mas `AuthPayload.tenantId` esperava `string`. Adicionado `!` (non-null assertion) na linha 95.
+
+10. **Removidos arquivos `.js` compilados antigos** — Existiam arquivos `.js` dentro de `backend/src/` que o `ts-node` carregava em vez dos `.ts`. Isso causava:
+    - `health.js` antigo só tinha 2 rotas POST (sem GET, sem `/patients`)
+    - Todas as rotas GET de health retornavam 404
+    - Solução: deletar todos os `.js` de `backend/src/`
+
+11. **Corrigido DashboardMedico (Modo Demo)** — O frontend exibia "Modo Demo" mesmo com backend rodando:
+    - **Causa raiz:** A API retorna `{ data: [...], pagination: {...} }`, mas o código esperava um array direto. `data.length` era `undefined`, então `setApiOnline(true)` nunca era chamado.
+    - **Correção:** Adicionado `json.data ?? json` para extrair o array da resposta.
+    - **Melhoria:** `setApiOnline(true)` movido para fora do `if (data.length > 0)` para mostrar "API Online" mesmo sem pacientes.
+
+12. **Adicionado `.gitignore`** — O repositório rastreava `node_modules/` inteiro (~milhares de arquivos). Criado `.gitignore` com:
+    - `node_modules/`, `dist/`, `build/`, `.env`
+    - `*.js.map`, `*.d.ts.map`, `backend/src/**/*.js`, `frontend/dist/`
+
+13. **Testes automatizados de todas as rotas** — 19/19 rotas testadas e funcionando:
+    - Auth: login (3 roles), login com erro, me, me sem token
+    - Health: patients (médico, admin), blood-pressure (GET/POST), glucose (GET/POST), RBAC
+    - Clinic: CRUD completo + RBAC
+
+14. **Commit e push** — Enviado para https://github.com/jairalvarengapereira/Hiperglico.git
 
 ### Credenciais de teste:
 - **Admin:** admin@saudevida.com.br / 123456
