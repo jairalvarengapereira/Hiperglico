@@ -53,7 +53,7 @@ export const Login: React.FC = () => {
         {/* Branding header */}
         <div className="text-center mb-8">
             <div className="inline-flex h-14 w-14 rounded-2xl bg-gradient-to-tr from-rose-500 via-pink-500 to-violet-600 items-center justify-center mb-4 animate-pulse">
-              <img src="/Logo.png" alt="Hiperglico" className="h-14 w-14 object-contain" />
+              <img src="/Logo3D.png" alt="Hiperglico" className="h-14 w-14 object-contain" />
             </div>
             <h1 className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-slate-800 via-slate-700 to-slate-900 bg-clip-text text-transparent">
               Hiperglico

@@ -15,7 +15,7 @@ function AppContent() {
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center gap-4 text-slate-800">
         <div className="inline-flex h-14 w-14 rounded-2xl bg-gradient-to-tr from-rose-500 via-pink-500 to-violet-600 items-center justify-center shadow-xl shadow-rose-500/20 mb-4 animate-pulse">
-          <img src="/Logo01.png" alt="Hiperglico" className="h-14 w-14 object-contain" />
+          <img src="/Logo3D01.png" alt="Hiperglico" className="h-14 w-14 object-contain" />
         </div>
         <div className="flex items-center gap-2 text-sm text-slate-500 font-semibold tracking-wider uppercase">
           <span className="h-2.5 w-2.5 rounded-full bg-rose-500 animate-ping" />
@@ -37,7 +37,7 @@ function AppContent() {
           {/* App Branding */}
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-rose-500 via-pink-500 to-violet-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
-              <img src="/Logo.png" alt="Hiperglico" className="h-10 w-10 object-contain" />
+              <img src="/Logo3D.png" alt="Hiperglico" className="h-10 w-10 object-contain" />
             </div>
             <div>
               <span className="block text-sm font-semibold tracking-wider bg-gradient-to-r from-slate-800 to-slate-900 bg-clip-text text-transparent">
