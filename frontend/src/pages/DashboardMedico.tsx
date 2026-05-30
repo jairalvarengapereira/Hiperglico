@@ -138,8 +138,9 @@ export const DashboardMedico: React.FC = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {
-        const data = await res.json();
-        if (data.length > 0) {
+        const json = await res.json();
+        const data = json.data ?? json;
+        if (Array.isArray(data) && data.length > 0) {
           // Mapear dados da API para o formato do componente
           const mapped: PatientMedicalRecord[] = data.map((p: any) => {
             const bpList: number[] = (p.bloodPressure ?? []).map((r: any) => r.systolic);
@@ -168,8 +169,8 @@ export const DashboardMedico: React.FC = () => {
           });
           setPatients(mapped);
           setSelectedId(mapped[0]?.id ?? 'p1');
-          setApiOnline(true);
         }
+        setApiOnline(true);
       }
     } catch {
       // mantém os dados mock

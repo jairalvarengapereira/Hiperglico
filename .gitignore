@@ -1,0 +1,8 @@
+node_modules/
+dist/
+build/
+.env
+*.js.map
+*.d.ts.map
+backend/src/**/*.js
+frontend/dist/
