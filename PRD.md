@@ -311,3 +311,18 @@ cd backend && npm run prisma:migrate
 cd backend && npm run prisma:seed
 cd backend && npm run prisma:studio
 ```
+
+---
+
+## 9. Ponto de Continuação
+
+> **Última atualização:** 30/05/2026 — Sessão completa, tudo commitado e enviado ao GitHub.
+
+### Próximos passos (por prioridade):
+
+1. **CRUD de PA e glicemia** — Adicionar `PUT` e `DELETE` para registros de saúde (backend + frontend)
+2. **Validação de tenant cross-data** — Middleware para garantir que usuário só acesse dados do seu tenant
+3. **Service layer** — Extrair lógica de negócio dos controllers para services
+4. **Testes automatizados** — Jest + supertest para controllers
+5. **README.md** — Instruções de setup, execução, variáveis de ambiente
+6. **Swagger/OpenAPI** — Documentação interativa da API
